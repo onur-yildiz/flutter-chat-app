@@ -1,3 +1,6 @@
+import 'package:chat_app/widgets/chat/messages.dart';
+import 'package:chat_app/widgets/chat/new_message.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -7,26 +10,44 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('FlutterChat'),
+        actions: [
+          DropdownButton(
+              icon: Icon(
+                Icons.more_vert,
+                color: Theme.of(context).primaryIconTheme.color,
+              ),
+              items: [
+                DropdownMenuItem(
+                  child: Container(
+                    child: Row(
+                      children: [
+                        Icon(Icons.exit_to_app),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text('Logout'),
+                      ],
+                    ),
+                  ),
+                  value: 'logout',
+                ),
+              ],
+              onChanged: (itemIdentifier) {
+                if (itemIdentifier == 'logout') {
+                  FirebaseAuth.instance.signOut();
+                }
+              })
+        ],
       ),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (ctx, i) => Container(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('works'),
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(
+              child: Messages(),
+            ),
+            NewMessage(),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Firestore.instance
-              .collection('chats/Sn60eNnUQZVMtZjPzHDZ/messages')
-              .snapshots()
-              .listen((data) {
-            data.documents.forEach((element) {
-              print(element['text']);
-            });
-          });
-        },
       ),
     );
   }
