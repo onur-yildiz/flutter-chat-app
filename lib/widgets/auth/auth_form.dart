@@ -81,6 +81,9 @@ class _AuthFormState extends State<AuthForm> {
                 if (!_isLogin) UserImagePicker(_pickImage),
                 TextFormField(
                   key: ValueKey('email'),
+                  autocorrect: false,
+                  textCapitalization: TextCapitalization.none,
+                  enableSuggestions: false,
                   validator: (value) {
                     if (value.isEmpty || !value.contains('@')) {
                       return 'Please enter a valid email address.';
@@ -88,8 +91,8 @@ class _AuthFormState extends State<AuthForm> {
                     return null;
                   },
                   onFieldSubmitted: (_) {
-                    FocusScope.of(context)
-                        .requestFocus(_isLogin ? _passwordFocusNode : _usernameFocusNode);
+                    FocusScope.of(context).requestFocus(
+                        _isLogin ? _passwordFocusNode : _usernameFocusNode);
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -102,6 +105,9 @@ class _AuthFormState extends State<AuthForm> {
                 if (!_isLogin)
                   TextFormField(
                     key: ValueKey('username'),
+                    autocorrect: true,
+                    textCapitalization: TextCapitalization.words,
+                    enableSuggestions: false,
                     validator: (value) {
                       if (value.isEmpty || value.length < 4) {
                         return 'Please enter at least 4 characters';
@@ -155,7 +161,9 @@ class _AuthFormState extends State<AuthForm> {
                         _isLogin = !_isLogin;
                       });
                     },
-                    child: Text(_isLogin ? 'Create a new account' : 'Already have an account?'),
+                    child: Text(_isLogin
+                        ? 'Create a new account'
+                        : 'Already have an account?'),
                     textColor: Theme.of(context).primaryColor,
                   ),
               ],
