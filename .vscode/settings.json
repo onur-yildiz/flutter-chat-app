@@ -1,0 +1,28 @@
+{
+  "editor.tabSize": 2,
+  "beautify.config": "",
+  "beautify.language": {
+
+    "js": {
+      "type": [
+        "javascript",
+        "json",
+        "jsonc"
+      ],
+      "filename": [
+        ".jshintrc",
+        ".jsbeautifyrc"
+      ]
+    },
+    "css": [
+      "css",
+      "less",
+      "scss"
+    ],
+    "html": [
+      "htm",
+      "html"
+    ]
+  },
+  "editor.formatOnSave": true
+}
